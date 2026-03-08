@@ -22,10 +22,10 @@ function formatDate(dateStr: string) {
 export default function Home() {
   const stats = getSummaryStats();
   return (
-    <main className="max-w-6xl mx-auto px-4 py-10">
+    <main className="max-w-6xl mx-auto px-4 py-6 sm:py-10">
       {/* Header */}
-      <header className="mb-10">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+      <header className="mb-6 sm:mb-10">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
           Tech Job Market Index
         </h1>
         <p className="mt-2 text-lg text-gray-500">
@@ -47,7 +47,7 @@ export default function Home() {
       </section>
 
       {/* Key Insights */}
-      <section className="grid md:grid-cols-3 gap-6 mb-10">
+      <section className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-10">
         <InsightCard
           value={String(stats.peakValue)}
           label="Peak Job Postings Index"
