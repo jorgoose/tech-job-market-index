@@ -116,6 +116,36 @@ export function getYearlyTotals(): { year: number; total: number }[] {
   }));
 }
 
+/** Compute summary statistics from the data arrays. */
+export function getSummaryStats() {
+  // Peak job posting
+  const peak = jobPostingsData.reduce((max, d) =>
+    d.value > max.value ? d : max
+  );
+  const baseline = jobPostingsData[0].value; // Feb 2020 = 100
+
+  // Latest job posting
+  const latest = jobPostingsData[jobPostingsData.length - 1];
+
+  // Enrollment growth
+  const totals = getYearlyTotals();
+  const first = totals[0];
+  const last = totals[totals.length - 1];
+  const enrollmentGrowthPct = ((last.total - first.total) / first.total) * 100;
+
+  return {
+    peakValue: peak.value,
+    peakDate: peak.date,
+    peakMultiple: peak.value / baseline,
+    latestValue: latest.value,
+    latestDate: latest.date,
+    latestPctBelowBaseline: ((baseline - latest.value) / baseline) * 100,
+    enrollmentGrowthPct,
+    enrollmentFirstYear: first.year,
+    enrollmentLastYear: last.year,
+  };
+}
+
 /**
  * Build a merged dataset for Recharts — monthly job postings with
  * enrollment interpolated from fall-semester anchor points.

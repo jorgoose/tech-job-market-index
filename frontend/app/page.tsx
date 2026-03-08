@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { getSummaryStats } from "@/lib/data";
 
 const JobsEnrollmentChart = dynamic(
   () => import("@/components/JobsEnrollmentChart"),
@@ -10,7 +11,16 @@ const EnrollmentTable = dynamic(
   { ssr: false }
 );
 
+function formatDate(dateStr: string) {
+  const [yyyy, mm] = dateStr.split("-").map(Number);
+  return new Date(yyyy, mm - 1, 1).toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+  });
+}
+
 export default function Home() {
+  const stats = getSummaryStats();
   return (
     <main className="max-w-6xl mx-auto px-4 py-10">
       {/* Header */}
@@ -39,21 +49,21 @@ export default function Home() {
       {/* Key Insights */}
       <section className="grid md:grid-cols-3 gap-6 mb-10">
         <InsightCard
-          value="230"
+          value={String(stats.peakValue)}
           label="Peak Job Postings Index"
-          detail="March 2022 — 2.3x the pre-pandemic baseline"
+          detail={`${formatDate(stats.peakDate)} — ${stats.peakMultiple.toFixed(1)}x the pre-pandemic baseline`}
           color="red"
         />
         <InsightCard
-          value="70.5"
+          value={String(stats.latestValue)}
           label="Current Job Postings Index"
-          detail="Feb 2025 — 30% below pre-pandemic levels"
+          detail={`${formatDate(stats.latestDate)} — ${Math.round(stats.latestPctBelowBaseline)}% below pre-pandemic levels`}
           color="red"
         />
         <InsightCard
-          value="+21%"
+          value={`+${Math.round(stats.enrollmentGrowthPct)}%`}
           label="Enrollment Growth"
-          detail="Top 20 CS programs, 2018 to 2023"
+          detail={`Top 20 CS programs, ${stats.enrollmentFirstYear} to ${stats.enrollmentLastYear}`}
           color="blue"
         />
       </section>
