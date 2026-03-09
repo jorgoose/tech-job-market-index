@@ -165,22 +165,22 @@ export const csCompletionsData: CsCompletionRow[] = [
     sourceUrl: "https://www.studentclearinghouse.org/nscblog/computer-science-has-highest-increase-in-bachelors-earners/",
   },
   {
-    academicYear: "2023-24", year: 2024, total: 110000, estimated: true,
+    academicYear: "2023-24", year: 2024, total: 107873, estimated: true,
     sourceLabel: "Est. — Taulbee Survey",
     sourceUrl: "https://cra.org/crn/2025/06/cra-update-new-cra-taulbee-survey-findings-show-record-doctoral-production-rising-enrollment-and-shifting-undergraduate-trends/",
-    methodology: "Taulbee reported −4.3% at PhD-granting depts; ~−2.4% applied nationally",
+    methodology: "Taulbee 2024: −4.3% bachelor's degree production at PhD-granting CS depts, applied to NSC 2022-23 base",
   },
   {
-    academicYear: "2024-25", year: 2025, total: 108000, estimated: true,
-    sourceLabel: "Proj. — CERP Survey",
-    sourceUrl: "https://cra.org/crn/2025/10/cerp-pulse-survey-a-snapshot-of-2025-undergraduate-computing-enrollment-patterns/",
-    methodology: "Projected −1.8% trend; 62% of programs report enrollment declines",
+    academicYear: "2024-25", year: 2025, total: 103234, estimated: true,
+    sourceLabel: "Proj. — Taulbee rate",
+    sourceUrl: "https://cra.org/crn/2025/06/cra-update-new-cra-taulbee-survey-findings-show-record-doctoral-production-rising-enrollment-and-shifting-undergraduate-trends/",
+    methodology: "−4.3% YoY continued (Taulbee rate); CERP confirms 62% of programs report enrollment declines",
   },
   {
-    academicYear: "2025-26", year: 2026, total: 105000, estimated: true,
-    sourceLabel: "Proj. — CERP Survey",
+    academicYear: "2025-26", year: 2026, total: 98795, estimated: true,
+    sourceLabel: "Proj. — Taulbee rate",
     sourceUrl: "https://cra.org/crn/2025/10/cerp-pulse-survey-a-snapshot-of-2025-undergraduate-computing-enrollment-patterns/",
-    methodology: "Projected −2.8% continued decline based on enrollment trends",
+    methodology: "−4.3% YoY continued (Taulbee rate); Fall 2025 enrollment drops of 6-15% support continued decline",
   },
 ];
 

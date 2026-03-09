@@ -121,8 +121,8 @@ export default function Home() {
             <span className="block">
               <strong>2017-22:</strong> NCES IPEDS Digest of Education Statistics, Table 325.35 (bachelor&apos;s degrees in CIP 11).{" "}
               <strong>2022-23:</strong> National Student Clearinghouse bachelor&apos;s earners report.{" "}
-              <strong>2023-24:</strong> Est. from 2024 CRA Taulbee Survey (−4.3% degree production at PhD-granting CS depts).{" "}
-              <strong>2024-26:</strong> Projected from CERP Pulse Survey (62% of computing programs report enrollment declines, Fall 2025).
+              <strong>2023-26:</strong> Taulbee Survey measured −4.3% YoY in bachelor&apos;s degree production at PhD-granting CS departments (2023-24); same rate applied forward for projections.
+              CERP Pulse Survey (Fall 2025) corroborates with 62% of computing programs reporting enrollment declines.
             </span>
           </p>
         </div>
@@ -169,8 +169,8 @@ export default function Home() {
           Note: JOLTS Information data is not seasonally adjusted — use
           the 3-month moving average toggle on the chart to smooth seasonal
           noise. Completions are interpolated monthly from spring commencement
-          anchor points. 2023-24 est. from 2024 Taulbee Survey; 2024-25 &amp;
-          2025-26 are projections based on declining enrollment trends.
+          anchor points. 2023-26 estimated/projected using Taulbee&apos;s measured
+          −4.3% YoY bachelor&apos;s degree production decline at PhD-granting CS depts.
         </p>
       </footer>
     </main>
