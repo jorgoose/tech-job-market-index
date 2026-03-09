@@ -123,16 +123,65 @@ export const jobOpeningsData: { date: string; value: number }[] = [
  *
  * Academic year X–(X+1) is anchored at June of year X+1 (spring commencement).
  */
-export const csCompletionsData: { academicYear: string; year: number; total: number; estimated?: boolean }[] = [
-  { academicYear: "2017-18", year: 2018, total: 79598 },
-  { academicYear: "2018-19", year: 2019, total: 88638 },
-  { academicYear: "2019-20", year: 2020, total: 97054 },
-  { academicYear: "2020-21", year: 2021, total: 104883 },
-  { academicYear: "2021-22", year: 2022, total: 108503 },
-  { academicYear: "2022-23", year: 2023, total: 112720 },
-  { academicYear: "2023-24", year: 2024, total: 110000, estimated: true },
-  { academicYear: "2024-25", year: 2025, total: 108000, estimated: true },
-  { academicYear: "2025-26", year: 2026, total: 105000, estimated: true },
+export interface CsCompletionRow {
+  academicYear: string;
+  year: number;
+  total: number;
+  estimated?: boolean;
+  sourceLabel: string;
+  sourceUrl: string;
+  methodology?: string;
+}
+
+export const csCompletionsData: CsCompletionRow[] = [
+  {
+    academicYear: "2017-18", year: 2018, total: 79598,
+    sourceLabel: "NCES Table 325.35",
+    sourceUrl: "https://nces.ed.gov/programs/digest/d23/tables/dt23_325.35.asp",
+  },
+  {
+    academicYear: "2018-19", year: 2019, total: 88638,
+    sourceLabel: "NCES Table 325.35",
+    sourceUrl: "https://nces.ed.gov/programs/digest/d23/tables/dt23_325.35.asp",
+  },
+  {
+    academicYear: "2019-20", year: 2020, total: 97054,
+    sourceLabel: "NCES Table 325.35",
+    sourceUrl: "https://nces.ed.gov/programs/digest/d23/tables/dt23_325.35.asp",
+  },
+  {
+    academicYear: "2020-21", year: 2021, total: 104883,
+    sourceLabel: "NCES Table 325.35",
+    sourceUrl: "https://nces.ed.gov/programs/digest/d23/tables/dt23_325.35.asp",
+  },
+  {
+    academicYear: "2021-22", year: 2022, total: 108503,
+    sourceLabel: "NCES Table 325.35",
+    sourceUrl: "https://nces.ed.gov/programs/digest/d23/tables/dt23_325.35.asp",
+  },
+  {
+    academicYear: "2022-23", year: 2023, total: 112720,
+    sourceLabel: "Natl Student Clearinghouse",
+    sourceUrl: "https://www.studentclearinghouse.org/nscblog/computer-science-has-highest-increase-in-bachelors-earners/",
+  },
+  {
+    academicYear: "2023-24", year: 2024, total: 110000, estimated: true,
+    sourceLabel: "Est. — Taulbee Survey",
+    sourceUrl: "https://cra.org/crn/2025/06/cra-update-new-cra-taulbee-survey-findings-show-record-doctoral-production-rising-enrollment-and-shifting-undergraduate-trends/",
+    methodology: "Taulbee reported −4.3% at PhD-granting depts; ~−2.4% applied nationally",
+  },
+  {
+    academicYear: "2024-25", year: 2025, total: 108000, estimated: true,
+    sourceLabel: "Proj. — CERP Survey",
+    sourceUrl: "https://cra.org/crn/2025/10/cerp-pulse-survey-a-snapshot-of-2025-undergraduate-computing-enrollment-patterns/",
+    methodology: "Projected −1.8% trend; 62% of programs report enrollment declines",
+  },
+  {
+    academicYear: "2025-26", year: 2026, total: 105000, estimated: true,
+    sourceLabel: "Proj. — CERP Survey",
+    sourceUrl: "https://cra.org/crn/2025/10/cerp-pulse-survey-a-snapshot-of-2025-undergraduate-computing-enrollment-patterns/",
+    methodology: "Projected −2.8% continued decline based on enrollment trends",
+  },
 ];
 
 /** Return yearly CS completions totals (compatible with chart merge). */

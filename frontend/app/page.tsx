@@ -32,11 +32,14 @@ export default function Home() {
       {/* Chart */}
       <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-8 mb-10">
         <h2 className="text-xl font-semibold mb-1">
-          Job Openings vs. CS Degrees Conferred
+          Job Openings vs. CS Bachelor&apos;s Degrees
         </h2>
         <p className="text-sm text-gray-400 mb-6">
-          BLS JOLTS Information Sector (FRED JTU5100JOL) overlaid with
-          NCES national CS bachelor&apos;s completions (CIP 11)
+          BLS JOLTS Information Sector ({" "}
+          <a href="https://fred.stlouisfed.org/series/JTU5100JOL" className="underline hover:text-gray-600" target="_blank" rel="noopener noreferrer">FRED JTU5100JOL</a>
+          ) overlaid with national CS bachelor&apos;s completions ({" "}
+          <a href="https://nces.ed.gov/programs/digest/d23/tables/dt23_325.35.asp" className="underline hover:text-gray-600" target="_blank" rel="noopener noreferrer">NCES CIP 11</a>
+          )
         </p>
         <JobsEnrollmentChart />
       </section>
@@ -57,8 +60,8 @@ export default function Home() {
         />
         <InsightCard
           value={`+${Math.round(stats.completionsGrowthPct)}%`}
-          label="CS Degree Growth"
-          detail={`National bachelor's, ${stats.completionsFirstYear} to ${stats.completionsLastYear}`}
+          label="CS Bachelor's Growth"
+          detail={`National bachelor's degrees, ${stats.completionsFirstYear} to ${stats.completionsLastYear}`}
           color="blue"
         />
       </section>
@@ -69,14 +72,14 @@ export default function Home() {
           CS Bachelor&apos;s Degrees Conferred
         </h2>
         <p className="text-sm text-gray-400 mb-6">
-          National totals — CIP 11 (Computer &amp; Information Sciences)
+          National totals — CIP 11 (Computer &amp; Information Sciences), bachelor&apos;s level only
         </p>
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm border-collapse">
             <thead>
               <tr className="border-b-2 border-gray-300">
                 <th className="text-left py-2 px-3 font-semibold text-gray-700">Academic Year</th>
-                <th className="text-right py-2 px-3 font-semibold text-gray-700">Degrees</th>
+                <th className="text-right py-2 px-3 font-semibold text-gray-700">Bachelor&apos;s Degrees</th>
                 <th className="text-right py-2 px-3 font-semibold text-gray-700">YoY Change</th>
                 <th className="text-left py-2 px-3 font-semibold text-gray-700">Source</th>
               </tr>
@@ -95,23 +98,32 @@ export default function Home() {
                     <td className="py-1.5 px-3 text-right font-mono text-gray-600">
                       {yoy !== null ? `${yoy >= 0 ? "+" : ""}${yoy.toFixed(1)}%` : "—"}
                     </td>
-                    <td className="py-1.5 px-3 text-gray-400 text-xs">
-                      {d.academicYear === "2023-24"
-                        ? "Est. (Taulbee)"
-                        : d.academicYear === "2024-25" || d.academicYear === "2025-26"
-                          ? "Proj."
-                          : d.academicYear === "2022-23"
-                            ? "NSC"
-                            : "NCES"}
+                    <td className="py-1.5 px-3 text-xs">
+                      <a
+                        href={d.sourceUrl}
+                        className="underline text-blue-500 hover:text-blue-700"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={d.methodology ?? d.sourceLabel}
+                      >
+                        {d.sourceLabel}
+                      </a>
                     </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
-          <p className="text-xs text-gray-400 mt-2">
-            * 2023-24 est. from 2024 Taulbee Survey (−4.3% at PhD-granting depts).
-            2024-25 &amp; 2025-26 projected from declining trend (CERP: 62% of programs report declines).
+          <p className="text-xs text-gray-400 mt-3 space-y-1">
+            <span className="block">
+              * Estimated / projected — click source links above for methodology.
+            </span>
+            <span className="block">
+              <strong>2017-22:</strong> NCES IPEDS Digest of Education Statistics, Table 325.35 (bachelor&apos;s degrees in CIP 11).{" "}
+              <strong>2022-23:</strong> National Student Clearinghouse bachelor&apos;s earners report.{" "}
+              <strong>2023-24:</strong> Est. from 2024 CRA Taulbee Survey (−4.3% degree production at PhD-granting CS depts).{" "}
+              <strong>2024-26:</strong> Projected from CERP Pulse Survey (62% of computing programs report enrollment declines, Fall 2025).
+            </span>
           </p>
         </div>
       </section>

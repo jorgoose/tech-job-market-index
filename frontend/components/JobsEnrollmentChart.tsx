@@ -157,7 +157,7 @@ export default function JobsEnrollmentChart() {
                 isMobile
                   ? undefined
                   : {
-                      value: "CS Degrees Conferred (National)",
+                      value: "CS Bachelor's Degrees Conferred (National)",
                       angle: 90,
                       position: "insideRight",
                       offset: -5,
@@ -209,7 +209,7 @@ export default function JobsEnrollmentChart() {
               yAxisId="enrollment"
               type="monotone"
               dataKey="enrollment"
-              name="CS Degrees Conferred (National)"
+              name="CS Bachelor's Degrees (National)"
               fill={ENROLL_COLOR}
               fillOpacity={0.08}
               stroke="none"
@@ -218,7 +218,7 @@ export default function JobsEnrollmentChart() {
               yAxisId="enrollment"
               type="monotone"
               dataKey="enrollment"
-              name="CS Degrees Conferred (National)"
+              name="CS Bachelor's Degrees (National)"
               stroke={ENROLL_COLOR}
               strokeWidth={isMobile ? 2 : 2.5}
               dot={false}
