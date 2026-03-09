@@ -1,6 +1,6 @@
 # Tech Job Market Index
 
-Interactive visualization comparing **JOLTS job openings** in the Information sector (NAICS 51) with **undergraduate CS enrollment** at the top 20 US universities.
+Interactive visualization comparing **JOLTS job openings** in the Information sector (NAICS 51) with **national CS bachelor's degrees conferred** (CIP 11).
 
 ## Project Structure
 
@@ -8,7 +8,7 @@ Interactive visualization comparing **JOLTS job openings** in the Information se
 ├── frontend/          # Next.js app (deployed to Vercel)
 │   ├── app/           # App router pages
 │   ├── components/    # Chart and table components
-│   └── lib/data.ts    # Job postings + enrollment datasets
+│   └── lib/data.ts    # Job openings + CS completions datasets
 ├── visualize.py       # Python script for static matplotlib chart
 ├── data/              # Raw CSV data
 └── output/            # Generated charts (git-ignored)
@@ -38,7 +38,7 @@ Generates `output/jobs_vs_enrollment.png`.
 ## Data Sources
 
 - **Job Openings**: [FRED JTU5100JOL](https://fred.stlouisfed.org/series/JTU5100JOL) — BLS JOLTS Job Openings: Information Sector, NAICS 51 (Thousands, Not Seasonally Adjusted)
-- **Enrollment**: [CRA Taulbee Survey](https://cra.org/resources/taulbee-survey/) / [NCES IPEDS](https://nces.ed.gov/ipeds/) — estimated undergraduate CS enrollment at top 20 US programs
+- **CS Degrees**: [NCES Digest Table 325.35](https://nces.ed.gov/programs/digest/d23/tables/dt23_325.35.asp) / [National Student Clearinghouse](https://www.studentclearinghouse.org/) — National CS bachelor's degrees conferred (CIP 11). 2023-24 estimated from [CRA Taulbee Survey](https://cra.org/resources/taulbee-survey/) growth rate.
 
 ## Deploying to Vercel
 

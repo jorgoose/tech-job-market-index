@@ -1,13 +1,8 @@
 import dynamic from "next/dynamic";
-import { getSummaryStats } from "@/lib/data";
+import { getSummaryStats, csCompletionsData } from "@/lib/data";
 
 const JobsEnrollmentChart = dynamic(
   () => import("@/components/JobsEnrollmentChart"),
-  { ssr: false }
-);
-
-const EnrollmentTable = dynamic(
-  () => import("@/components/EnrollmentTable"),
   { ssr: false }
 );
 
@@ -29,19 +24,19 @@ export default function Home() {
           Tech Job Market Index
         </h1>
         <p className="mt-2 text-lg text-gray-500">
-          JOLTS job openings in the Information sector (NAICS 51) vs.
-          computer science enrollment at top US universities
+          JOLTS job openings in the Information sector vs. national CS
+          bachelor&apos;s degrees conferred
         </p>
       </header>
 
       {/* Chart */}
       <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-8 mb-10">
         <h2 className="text-xl font-semibold mb-1">
-          Job Openings vs. CS Enrollment
+          Job Openings vs. CS Degrees Conferred
         </h2>
         <p className="text-sm text-gray-400 mb-6">
           BLS JOLTS Information Sector (FRED JTU5100JOL) overlaid with
-          Top 20 US CS Program Enrollment
+          NCES national CS bachelor&apos;s completions (CIP 11)
         </p>
         <JobsEnrollmentChart />
       </section>
@@ -61,22 +56,57 @@ export default function Home() {
           color="red"
         />
         <InsightCard
-          value={`+${Math.round(stats.enrollmentGrowthPct)}%`}
-          label="Enrollment Growth"
-          detail={`Top 20 CS programs, ${stats.enrollmentFirstYear} to ${stats.enrollmentLastYear}`}
+          value={`+${Math.round(stats.completionsGrowthPct)}%`}
+          label="CS Degree Growth"
+          detail={`National bachelor's, ${stats.completionsFirstYear} to ${stats.completionsLastYear}`}
           color="blue"
         />
       </section>
 
-      {/* Enrollment Table */}
+      {/* Completions Table */}
       <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-8 mb-10">
         <h2 className="text-xl font-semibold mb-1">
-          Enrollment by University
+          CS Bachelor&apos;s Degrees Conferred
         </h2>
         <p className="text-sm text-gray-400 mb-6">
-          Estimated undergraduate CS enrollment at top 20 US programs
+          National totals — CIP 11 (Computer &amp; Information Sciences)
         </p>
-        <EnrollmentTable />
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-sm border-collapse">
+            <thead>
+              <tr className="border-b-2 border-gray-300">
+                <th className="text-left py-2 px-3 font-semibold text-gray-700">Academic Year</th>
+                <th className="text-right py-2 px-3 font-semibold text-gray-700">Degrees</th>
+                <th className="text-right py-2 px-3 font-semibold text-gray-700">YoY Change</th>
+                <th className="text-left py-2 px-3 font-semibold text-gray-700">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              {csCompletionsData.map((d, i) => {
+                const prev = i > 0 ? csCompletionsData[i - 1].total : null;
+                const yoy = prev ? ((d.total - prev) / prev) * 100 : null;
+                return (
+                  <tr key={d.academicYear} className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="py-1.5 px-3 text-gray-800">{d.academicYear}</td>
+                    <td className="py-1.5 px-3 text-right font-mono text-gray-600">
+                      {d.total.toLocaleString()}
+                      {d.estimated && <span className="text-xs text-amber-500 ml-1">*</span>}
+                    </td>
+                    <td className="py-1.5 px-3 text-right font-mono text-gray-600">
+                      {yoy !== null ? `+${yoy.toFixed(1)}%` : "—"}
+                    </td>
+                    <td className="py-1.5 px-3 text-gray-400 text-xs">
+                      {d.estimated ? "Est. (Taulbee +4.3%)" : d.academicYear === "2022-23" ? "NSC" : "NCES"}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <p className="text-xs text-gray-400 mt-2">
+            * Estimated from CRA Taulbee Survey growth rate; provisional IPEDS data pending.
+          </p>
+        </div>
       </section>
 
       {/* Sources */}
@@ -96,31 +126,31 @@ export default function Home() {
           (Thousands, NSA)
         </p>
         <p>
-          Enrollment:{" "}
+          CS Degrees:{" "}
           <a
-            href="https://cra.org/resources/taulbee-survey/"
+            href="https://nces.ed.gov/programs/digest/d23/tables/dt23_325.35.asp"
             className="underline hover:text-gray-600"
             target="_blank"
             rel="noopener noreferrer"
           >
-            CRA Taulbee Survey
+            NCES Digest Table 325.35
           </a>
           {" / "}
           <a
-            href="https://nces.ed.gov/ipeds/"
+            href="https://www.studentclearinghouse.org/nscblog/computer-science-has-highest-increase-in-bachelors-earners/"
             className="underline hover:text-gray-600"
             target="_blank"
             rel="noopener noreferrer"
           >
-            NCES IPEDS
+            National Student Clearinghouse
           </a>{" "}
-          — CS enrollment estimates for top 20 US programs
+          — National CS bachelor&apos;s degrees conferred (CIP 11)
         </p>
         <p>
           Note: JOLTS Information data is not seasonally adjusted — use
           the 3-month moving average toggle on the chart to smooth seasonal
-          noise. Enrollment data is interpolated monthly from fall-semester
-          anchor points.
+          noise. Completions are interpolated monthly from spring commencement
+          anchor points. 2023-24 is estimated from CRA Taulbee Survey growth.
         </p>
       </footer>
     </main>

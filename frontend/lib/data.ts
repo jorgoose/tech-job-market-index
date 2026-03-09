@@ -106,50 +106,32 @@ export const jobOpeningsData: { date: string; value: number }[] = [
 ];
 
 /**
- * Top 20 US CS programs — estimated total undergraduate CS enrollment.
- * Compiled from NCES IPEDS completions data and CRA Taulbee Survey.
+ * National CS bachelor's degrees conferred (CIP code 11 —
+ * Computer and Information Sciences and Support Services).
+ *
  * Sources:
- *   https://cra.org/resources/taulbee-survey/
- *   https://nces.ed.gov/ipeds/
+ *   2017-18 – 2021-22: NCES Digest of Education Statistics, Table 325.35
+ *     https://nces.ed.gov/programs/digest/d23/tables/dt23_325.35.asp
+ *   2022-23: National Student Clearinghouse Research Center
+ *     https://www.studentclearinghouse.org/nscblog/computer-science-has-highest-increase-in-bachelors-earners/
+ *   2023-24: Estimated from CRA Taulbee Survey (+4.3% YoY growth)
+ *     https://cra.org/crn/2025/08/infographic-computing-bachelors-enrollment-continues-to-grow-even-as-the-field-evolves/
+ *
+ * Academic year X–(X+1) is anchored at June of year X+1 (spring commencement).
  */
-export interface UniversityEnrollment {
-  university: string;
-  data: Record<number, number>;
-}
-
-export const enrollmentByUniversity: UniversityEnrollment[] = [
-  { university: "MIT", data: { 2018: 1020, 2019: 1075, 2020: 1100, 2021: 1130, 2022: 1180, 2023: 1210 } },
-  { university: "Stanford", data: { 2018: 945, 2019: 980, 2020: 1010, 2021: 1050, 2022: 1100, 2023: 1140 } },
-  { university: "Carnegie Mellon", data: { 2018: 1350, 2019: 1420, 2020: 1460, 2021: 1510, 2022: 1580, 2023: 1630 } },
-  { university: "UC Berkeley", data: { 2018: 1820, 2019: 1900, 2020: 1950, 2021: 2000, 2022: 2080, 2023: 2150 } },
-  { university: "UIUC", data: { 2018: 2100, 2019: 2250, 2020: 2350, 2021: 2450, 2022: 2580, 2023: 2720 } },
-  { university: "Georgia Tech", data: { 2018: 1650, 2019: 1750, 2020: 1830, 2021: 1920, 2022: 2050, 2023: 2180 } },
-  { university: "Caltech", data: { 2018: 220, 2019: 230, 2020: 235, 2021: 240, 2022: 245, 2023: 250 } },
-  { university: "U Michigan", data: { 2018: 1150, 2019: 1220, 2020: 1280, 2021: 1340, 2022: 1410, 2023: 1480 } },
-  { university: "Cornell", data: { 2018: 980, 2019: 1040, 2020: 1090, 2021: 1140, 2022: 1200, 2023: 1260 } },
-  { university: "U Washington", data: { 2018: 1580, 2019: 1650, 2020: 1700, 2021: 1750, 2022: 1820, 2023: 1900 } },
-  { university: "Princeton", data: { 2018: 380, 2019: 405, 2020: 420, 2021: 440, 2022: 460, 2023: 480 } },
-  { university: "UT Austin", data: { 2018: 1350, 2019: 1430, 2020: 1500, 2021: 1570, 2022: 1650, 2023: 1730 } },
-  { university: "UCLA", data: { 2018: 1280, 2019: 1350, 2020: 1400, 2021: 1460, 2022: 1530, 2023: 1600 } },
-  { university: "Columbia", data: { 2018: 870, 2019: 930, 2020: 980, 2021: 1030, 2022: 1090, 2023: 1150 } },
-  { university: "UW-Madison", data: { 2018: 920, 2019: 970, 2020: 1020, 2021: 1070, 2022: 1120, 2023: 1180 } },
-  { university: "U Maryland", data: { 2018: 1050, 2019: 1120, 2020: 1180, 2021: 1240, 2022: 1310, 2023: 1380 } },
-  { university: "UC San Diego", data: { 2018: 1480, 2019: 1570, 2020: 1640, 2021: 1720, 2022: 1810, 2023: 1900 } },
-  { university: "Rice", data: { 2018: 320, 2019: 340, 2020: 360, 2021: 380, 2022: 400, 2023: 420 } },
-  { university: "Duke", data: { 2018: 410, 2019: 440, 2020: 465, 2021: 490, 2022: 520, 2023: 550 } },
-  { university: "NYU", data: { 2018: 1150, 2019: 1230, 2020: 1310, 2021: 1400, 2022: 1500, 2023: 1600 } },
+export const csCompletionsData: { academicYear: string; year: number; total: number; estimated?: boolean }[] = [
+  { academicYear: "2017-18", year: 2018, total: 79598 },
+  { academicYear: "2018-19", year: 2019, total: 88638 },
+  { academicYear: "2019-20", year: 2020, total: 97054 },
+  { academicYear: "2020-21", year: 2021, total: 104883 },
+  { academicYear: "2021-22", year: 2022, total: 108503 },
+  { academicYear: "2022-23", year: 2023, total: 112720 },
+  { academicYear: "2023-24", year: 2024, total: 117567, estimated: true },
 ];
 
-/** Aggregate yearly enrollment across all top 20 programs. */
+/** Return yearly CS completions totals (compatible with chart merge). */
 export function getYearlyTotals(): { year: number; total: number }[] {
-  const years = [2018, 2019, 2020, 2021, 2022, 2023];
-  return years.map((year) => ({
-    year,
-    total: enrollmentByUniversity.reduce(
-      (sum, u) => sum + (u.data[year] ?? 0),
-      0
-    ),
-  }));
+  return csCompletionsData.map((d) => ({ year: d.year, total: d.total }));
 }
 
 /** Compute summary statistics from the data arrays. */
@@ -167,11 +149,10 @@ export function getSummaryStats() {
   // Latest job openings
   const latest = jobOpeningsData[jobOpeningsData.length - 1];
 
-  // Enrollment growth
-  const totals = getYearlyTotals();
-  const first = totals[0];
-  const last = totals[totals.length - 1];
-  const enrollmentGrowthPct = ((last.total - first.total) / first.total) * 100;
+  // CS completions growth
+  const first = csCompletionsData[0];
+  const last = csCompletionsData[csCompletionsData.length - 1];
+  const completionsGrowthPct = ((last.total - first.total) / first.total) * 100;
 
   return {
     peakValue: peak.value,
@@ -182,9 +163,10 @@ export function getSummaryStats() {
     latestVsPrePandemicPct:
       ((latest.value - prePandemicAvg) / prePandemicAvg) * 100,
     prePandemicAvg: Math.round(prePandemicAvg),
-    enrollmentGrowthPct,
-    enrollmentFirstYear: first.year,
-    enrollmentLastYear: last.year,
+    completionsGrowthPct,
+    completionsFirstYear: first.academicYear,
+    completionsLastYear: last.academicYear,
+    latestCompletions: last.total,
   };
 }
 
@@ -207,10 +189,10 @@ export interface ChartDatum {
 export function getMergedChartData(): ChartDatum[] {
   const yearlyTotals = getYearlyTotals();
 
-  // Build enrollment anchors at September of each year
+  // Anchor completions at June of each year (spring commencement)
   const anchors: { ts: number; enrollment: number }[] = yearlyTotals.map(
     (y) => ({
-      ts: new Date(y.year, 8, 1).getTime(), // Sept 1
+      ts: new Date(y.year, 5, 1).getTime(), // June 1
       enrollment: y.total,
     })
   );

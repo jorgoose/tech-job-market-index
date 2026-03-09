@@ -56,15 +56,15 @@ function CustomTooltip({
       <p className="font-semibold text-gray-700 mb-1">{label}</p>
       {unique.map((entry) => (
         <p key={entry.dataKey} style={{ color: entry.color }}>
-          {entry.name.includes("Enrollment")
-            ? "Enrollment"
+          {entry.name.includes("Degrees")
+            ? "CS Degrees"
             : entry.dataKey === "jobOpeningsSmoothed"
               ? "Job Openings (3-mo avg)"
               : "Job Openings"}
           :{" "}
           <span className="font-mono font-semibold">
             {entry.value?.toLocaleString()}
-            {entry.name.includes("Enrollment") ? "" : "K"}
+            {entry.name.includes("Degrees") ? "" : "K"}
           </span>
         </p>
       ))}
@@ -157,7 +157,7 @@ export default function JobsEnrollmentChart() {
                 isMobile
                   ? undefined
                   : {
-                      value: "CS Enrollment (Top 20 Universities)",
+                      value: "CS Degrees Conferred (National)",
                       angle: 90,
                       position: "insideRight",
                       offset: -5,
@@ -177,8 +177,8 @@ export default function JobsEnrollmentChart() {
               iconType="plainline"
               formatter={(value: string) =>
                 isMobile
-                  ? value.includes("Enrollment")
-                    ? "CS Enrollment"
+                  ? value.includes("Degrees")
+                    ? "CS Degrees"
                     : "Job Openings"
                   : value
               }
@@ -209,7 +209,7 @@ export default function JobsEnrollmentChart() {
               yAxisId="enrollment"
               type="monotone"
               dataKey="enrollment"
-              name="CS Enrollment (Top 20)"
+              name="CS Degrees Conferred (National)"
               fill={ENROLL_COLOR}
               fillOpacity={0.08}
               stroke="none"
@@ -218,7 +218,7 @@ export default function JobsEnrollmentChart() {
               yAxisId="enrollment"
               type="monotone"
               dataKey="enrollment"
-              name="CS Enrollment (Top 20)"
+              name="CS Degrees Conferred (National)"
               stroke={ENROLL_COLOR}
               strokeWidth={isMobile ? 2 : 2.5}
               dot={false}
