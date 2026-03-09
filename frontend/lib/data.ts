@@ -1,72 +1,107 @@
 /**
- * FRED series IHLIDXUSTPSOFTDEVE — Software Development Job Postings on
- * Indeed in the United States (Index, Feb 1 2020 = 100, Seasonally Adjusted).
- * Source: https://fred.stlouisfed.org/series/IHLIDXUSTPSOFTDEVE
+ * FRED series JTS540099JOL — JOLTS Job Openings: Professional and Business
+ * Services (Thousands, Seasonally Adjusted, Monthly).
+ * Source: https://fred.stlouisfed.org/series/JTS540099JOL
  *
- * Monthly averages reconstructed from published trend data.
+ * Published by the U.S. Bureau of Labor Statistics.
  */
-export const jobPostingsData: { date: string; value: number }[] = [
-  { date: "2020-02", value: 100.0 },
-  { date: "2020-03", value: 80.0 },
-  { date: "2020-04", value: 45.0 },
-  { date: "2020-05", value: 42.0 },
-  { date: "2020-06", value: 50.0 },
-  { date: "2020-07", value: 58.0 },
-  { date: "2020-08", value: 65.0 },
-  { date: "2020-09", value: 70.0 },
-  { date: "2020-10", value: 75.0 },
-  { date: "2020-11", value: 80.0 },
-  { date: "2020-12", value: 85.0 },
-  { date: "2021-01", value: 90.0 },
-  { date: "2021-02", value: 95.0 },
-  { date: "2021-03", value: 105.0 },
-  { date: "2021-04", value: 115.0 },
-  { date: "2021-05", value: 125.0 },
-  { date: "2021-06", value: 140.0 },
-  { date: "2021-07", value: 155.0 },
-  { date: "2021-08", value: 165.0 },
-  { date: "2021-09", value: 175.0 },
-  { date: "2021-10", value: 190.0 },
-  { date: "2021-11", value: 200.0 },
-  { date: "2021-12", value: 210.0 },
-  { date: "2022-01", value: 218.0 },
-  { date: "2022-02", value: 225.0 },
-  { date: "2022-03", value: 230.0 },
-  { date: "2022-04", value: 225.0 },
-  { date: "2022-05", value: 218.0 },
-  { date: "2022-06", value: 205.0 },
-  { date: "2022-07", value: 190.0 },
-  { date: "2022-08", value: 178.0 },
-  { date: "2022-09", value: 165.0 },
-  { date: "2022-10", value: 155.0 },
-  { date: "2022-11", value: 145.0 },
-  { date: "2022-12", value: 135.0 },
-  { date: "2023-01", value: 125.0 },
-  { date: "2023-02", value: 118.0 },
-  { date: "2023-03", value: 112.0 },
-  { date: "2023-04", value: 107.0 },
-  { date: "2023-05", value: 102.0 },
-  { date: "2023-06", value: 97.0 },
-  { date: "2023-07", value: 93.0 },
-  { date: "2023-08", value: 90.0 },
-  { date: "2023-09", value: 87.0 },
-  { date: "2023-10", value: 83.0 },
-  { date: "2023-11", value: 80.0 },
-  { date: "2023-12", value: 77.0 },
-  { date: "2024-01", value: 75.0 },
-  { date: "2024-02", value: 73.0 },
-  { date: "2024-03", value: 72.0 },
-  { date: "2024-04", value: 71.0 },
-  { date: "2024-05", value: 70.0 },
-  { date: "2024-06", value: 69.5 },
-  { date: "2024-07", value: 69.0 },
-  { date: "2024-08", value: 68.5 },
-  { date: "2024-09", value: 68.0 },
-  { date: "2024-10", value: 67.8 },
-  { date: "2024-11", value: 67.5 },
-  { date: "2024-12", value: 68.3 },
-  { date: "2025-01", value: 66.5 },
-  { date: "2025-02", value: 70.5 },
+export const jobOpeningsData: { date: string; value: number }[] = [
+  { date: "2018-01", value: 1118 },
+  { date: "2018-02", value: 1108 },
+  { date: "2018-03", value: 1185 },
+  { date: "2018-04", value: 1196 },
+  { date: "2018-05", value: 1239 },
+  { date: "2018-06", value: 1268 },
+  { date: "2018-07", value: 1253 },
+  { date: "2018-08", value: 1331 },
+  { date: "2018-09", value: 1342 },
+  { date: "2018-10", value: 1344 },
+  { date: "2018-11", value: 1343 },
+  { date: "2018-12", value: 1351 },
+  { date: "2019-01", value: 1391 },
+  { date: "2019-02", value: 1387 },
+  { date: "2019-03", value: 1347 },
+  { date: "2019-04", value: 1169 },
+  { date: "2019-05", value: 1277 },
+  { date: "2019-06", value: 1279 },
+  { date: "2019-07", value: 1252 },
+  { date: "2019-08", value: 1282 },
+  { date: "2019-09", value: 1241 },
+  { date: "2019-10", value: 1205 },
+  { date: "2019-11", value: 1202 },
+  { date: "2019-12", value: 1237 },
+  { date: "2020-01", value: 1293 },
+  { date: "2020-02", value: 1288 },
+  { date: "2020-03", value: 1095 },
+  { date: "2020-04", value: 817 },
+  { date: "2020-05", value: 1001 },
+  { date: "2020-06", value: 1079 },
+  { date: "2020-07", value: 1149 },
+  { date: "2020-08", value: 1152 },
+  { date: "2020-09", value: 1262 },
+  { date: "2020-10", value: 1259 },
+  { date: "2020-11", value: 1343 },
+  { date: "2020-12", value: 1448 },
+  { date: "2021-01", value: 1419 },
+  { date: "2021-02", value: 1477 },
+  { date: "2021-03", value: 1563 },
+  { date: "2021-04", value: 1727 },
+  { date: "2021-05", value: 1888 },
+  { date: "2021-06", value: 1932 },
+  { date: "2021-07", value: 2076 },
+  { date: "2021-08", value: 2057 },
+  { date: "2021-09", value: 1954 },
+  { date: "2021-10", value: 2115 },
+  { date: "2021-11", value: 2045 },
+  { date: "2021-12", value: 2092 },
+  { date: "2022-01", value: 2096 },
+  { date: "2022-02", value: 2348 },
+  { date: "2022-03", value: 2454 },
+  { date: "2022-04", value: 2318 },
+  { date: "2022-05", value: 2226 },
+  { date: "2022-06", value: 2282 },
+  { date: "2022-07", value: 2101 },
+  { date: "2022-08", value: 1785 },
+  { date: "2022-09", value: 2134 },
+  { date: "2022-10", value: 1797 },
+  { date: "2022-11", value: 2151 },
+  { date: "2022-12", value: 2136 },
+  { date: "2023-01", value: 2028 },
+  { date: "2023-02", value: 1824 },
+  { date: "2023-03", value: 1794 },
+  { date: "2023-04", value: 1806 },
+  { date: "2023-05", value: 1613 },
+  { date: "2023-06", value: 1527 },
+  { date: "2023-07", value: 1243 },
+  { date: "2023-08", value: 1565 },
+  { date: "2023-09", value: 1511 },
+  { date: "2023-10", value: 1501 },
+  { date: "2023-11", value: 1379 },
+  { date: "2023-12", value: 1405 },
+  { date: "2024-01", value: 1443 },
+  { date: "2024-02", value: 1399 },
+  { date: "2024-03", value: 1272 },
+  { date: "2024-04", value: 1289 },
+  { date: "2024-05", value: 1302 },
+  { date: "2024-06", value: 1131 },
+  { date: "2024-07", value: 1367 },
+  { date: "2024-08", value: 1332 },
+  { date: "2024-09", value: 1308 },
+  { date: "2024-10", value: 1358 },
+  { date: "2024-11", value: 1733 },
+  { date: "2024-12", value: 1364 },
+  { date: "2025-01", value: 1211 },
+  { date: "2025-02", value: 1336 },
+  { date: "2025-03", value: 1249 },
+  { date: "2025-04", value: 1386 },
+  { date: "2025-05", value: 1302 },
+  { date: "2025-06", value: 1365 },
+  { date: "2025-07", value: 1274 },
+  { date: "2025-08", value: 1235 },
+  { date: "2025-09", value: 1502 },
+  { date: "2025-10", value: 1300 },
+  { date: "2025-11", value: 1273 },
+  { date: "2025-12", value: 1016 },
 ];
 
 /**
@@ -118,14 +153,18 @@ export function getYearlyTotals(): { year: number; total: number }[] {
 
 /** Compute summary statistics from the data arrays. */
 export function getSummaryStats() {
-  // Peak job posting
-  const peak = jobPostingsData.reduce((max, d) =>
+  // Pre-pandemic average (2019 calendar year) as baseline
+  const prePandemic = jobOpeningsData.filter((d) => d.date.startsWith("2019-"));
+  const prePandemicAvg =
+    prePandemic.reduce((s, d) => s + d.value, 0) / prePandemic.length;
+
+  // Peak job openings
+  const peak = jobOpeningsData.reduce((max, d) =>
     d.value > max.value ? d : max
   );
-  const baseline = jobPostingsData[0].value; // Feb 2020 = 100
 
-  // Latest job posting
-  const latest = jobPostingsData[jobPostingsData.length - 1];
+  // Latest job openings
+  const latest = jobOpeningsData[jobOpeningsData.length - 1];
 
   // Enrollment growth
   const totals = getYearlyTotals();
@@ -136,10 +175,12 @@ export function getSummaryStats() {
   return {
     peakValue: peak.value,
     peakDate: peak.date,
-    peakMultiple: peak.value / baseline,
+    peakVsPrePandemicPct: ((peak.value - prePandemicAvg) / prePandemicAvg) * 100,
     latestValue: latest.value,
     latestDate: latest.date,
-    latestPctBelowBaseline: ((baseline - latest.value) / baseline) * 100,
+    latestVsPrePandemicPct:
+      ((latest.value - prePandemicAvg) / prePandemicAvg) * 100,
+    prePandemicAvg: Math.round(prePandemicAvg),
     enrollmentGrowthPct,
     enrollmentFirstYear: first.year,
     enrollmentLastYear: last.year,
@@ -166,7 +207,7 @@ export function getMergedChartData(): {
     })
   );
 
-  return jobPostingsData.map((jp) => {
+  return jobOpeningsData.map((jp) => {
     const [yyyy, mm] = jp.date.split("-").map(Number);
     const ts = new Date(yyyy, mm - 1, 1).getTime();
 

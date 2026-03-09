@@ -45,11 +45,10 @@ function CustomTooltip({
       <p className="font-semibold text-gray-700 mb-1">{label}</p>
       {payload.map((entry) => (
         <p key={entry.name} style={{ color: entry.color }}>
-          {entry.name.includes("Enrollment") ? "Enrollment" : "Job Postings"}:{" "}
+          {entry.name.includes("Enrollment") ? "Enrollment" : "Job Openings"}:{" "}
           <span className="font-mono font-semibold">
-            {entry.name.includes("Enrollment")
-              ? entry.value?.toLocaleString()
-              : entry.value?.toFixed(1)}
+            {entry.value?.toLocaleString()}
+            {entry.name.includes("Enrollment") ? "" : "K"}
           </span>
         </p>
       ))}
@@ -82,18 +81,21 @@ export default function JobsEnrollmentChart() {
             height={isMobile ? 45 : 60}
           />
 
-          {/* Left Y-axis: Job Postings Index */}
+          {/* Left Y-axis: Job Openings (thousands) */}
           <YAxis
             yAxisId="jobs"
             orientation="left"
-            domain={[0, 260]}
+            domain={[0, 2800]}
             tick={{ fill: JOB_COLOR, fontSize: isMobile ? 9 : 11 }}
-            width={isMobile ? 30 : 60}
+            tickFormatter={(v: number) =>
+              isMobile ? `${(v / 1000).toFixed(1)}M` : `${v.toLocaleString()}K`
+            }
+            width={isMobile ? 35 : 60}
             label={
               isMobile
                 ? undefined
                 : {
-                    value: "Job Postings Index (Feb 2020 = 100)",
+                    value: "Job Openings (Thousands, SA)",
                     angle: -90,
                     position: "insideLeft",
                     offset: -5,
@@ -136,15 +138,15 @@ export default function JobsEnrollmentChart() {
               isMobile
                 ? value.includes("Enrollment")
                   ? "CS Enrollment"
-                  : "Job Postings"
+                  : "Job Openings"
                 : value
             }
           />
 
-          {/* Pre-pandemic baseline */}
+          {/* 2019 pre-pandemic average */}
           <ReferenceLine
             yAxisId="jobs"
-            y={100}
+            y={1281}
             stroke={JOB_COLOR}
             strokeDasharray="6 4"
             opacity={0.35}
@@ -152,7 +154,7 @@ export default function JobsEnrollmentChart() {
               isMobile
                 ? undefined
                 : {
-                    value: "Pre-pandemic baseline",
+                    value: "2019 avg (pre-pandemic)",
                     position: "insideTopLeft",
                     fill: JOB_COLOR,
                     fontSize: 10,
@@ -182,12 +184,12 @@ export default function JobsEnrollmentChart() {
             legendType="none"
           />
 
-          {/* Job postings area + line */}
+          {/* Job openings area + line */}
           <Area
             yAxisId="jobs"
             type="monotone"
             dataKey="jobPostings"
-            name="Software Dev Job Postings (Indeed/FRED)"
+            name="JOLTS Job Openings (Prof. & Business Svcs)"
             fill={JOB_COLOR}
             fillOpacity={0.08}
             stroke="none"
@@ -196,7 +198,7 @@ export default function JobsEnrollmentChart() {
             yAxisId="jobs"
             type="monotone"
             dataKey="jobPostings"
-            name="Software Dev Job Postings (Indeed/FRED)"
+            name="JOLTS Job Openings (Prof. & Business Svcs)"
             stroke={JOB_COLOR}
             strokeWidth={isMobile ? 2 : 2.5}
             dot={false}
