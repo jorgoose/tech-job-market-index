@@ -114,8 +114,12 @@ export const jobOpeningsData: { date: string; value: number }[] = [
  *     https://nces.ed.gov/programs/digest/d23/tables/dt23_325.35.asp
  *   2022-23: National Student Clearinghouse Research Center
  *     https://www.studentclearinghouse.org/nscblog/computer-science-has-highest-increase-in-bachelors-earners/
- *   2023-24: Estimated from CRA Taulbee Survey (+4.3% YoY growth)
- *     https://cra.org/crn/2025/08/infographic-computing-bachelors-enrollment-continues-to-grow-even-as-the-field-evolves/
+ *   2023-24: Estimated from 2024 CRA Taulbee Survey (−4.3% at PhD-granting
+ *     depts; ~−2.4% national estimate)
+ *     https://cra.org/crn/2025/06/cra-update-new-cra-taulbee-survey-findings-show-record-doctoral-production-rising-enrollment-and-shifting-undergraduate-trends/
+ *   2024-25 / 2025-26: Projected from declining trend. CERP Pulse Survey
+ *     (Oct 2025) reports 62% of computing programs saw enrollment decline.
+ *     https://cra.org/crn/2025/10/cerp-pulse-survey-a-snapshot-of-2025-undergraduate-computing-enrollment-patterns/
  *
  * Academic year X–(X+1) is anchored at June of year X+1 (spring commencement).
  */
@@ -126,7 +130,9 @@ export const csCompletionsData: { academicYear: string; year: number; total: num
   { academicYear: "2020-21", year: 2021, total: 104883 },
   { academicYear: "2021-22", year: 2022, total: 108503 },
   { academicYear: "2022-23", year: 2023, total: 112720 },
-  { academicYear: "2023-24", year: 2024, total: 117567, estimated: true },
+  { academicYear: "2023-24", year: 2024, total: 110000, estimated: true },
+  { academicYear: "2024-25", year: 2025, total: 108000, estimated: true },
+  { academicYear: "2025-26", year: 2026, total: 105000, estimated: true },
 ];
 
 /** Return yearly CS completions totals (compatible with chart merge). */

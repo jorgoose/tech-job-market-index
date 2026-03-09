@@ -93,10 +93,16 @@ export default function Home() {
                       {d.estimated && <span className="text-xs text-amber-500 ml-1">*</span>}
                     </td>
                     <td className="py-1.5 px-3 text-right font-mono text-gray-600">
-                      {yoy !== null ? `+${yoy.toFixed(1)}%` : "—"}
+                      {yoy !== null ? `${yoy >= 0 ? "+" : ""}${yoy.toFixed(1)}%` : "—"}
                     </td>
                     <td className="py-1.5 px-3 text-gray-400 text-xs">
-                      {d.estimated ? "Est. (Taulbee +4.3%)" : d.academicYear === "2022-23" ? "NSC" : "NCES"}
+                      {d.academicYear === "2023-24"
+                        ? "Est. (Taulbee)"
+                        : d.academicYear === "2024-25" || d.academicYear === "2025-26"
+                          ? "Proj."
+                          : d.academicYear === "2022-23"
+                            ? "NSC"
+                            : "NCES"}
                     </td>
                   </tr>
                 );
@@ -104,7 +110,8 @@ export default function Home() {
             </tbody>
           </table>
           <p className="text-xs text-gray-400 mt-2">
-            * Estimated from CRA Taulbee Survey growth rate; provisional IPEDS data pending.
+            * 2023-24 est. from 2024 Taulbee Survey (−4.3% at PhD-granting depts).
+            2024-25 &amp; 2025-26 projected from declining trend (CERP: 62% of programs report declines).
           </p>
         </div>
       </section>
@@ -150,7 +157,8 @@ export default function Home() {
           Note: JOLTS Information data is not seasonally adjusted — use
           the 3-month moving average toggle on the chart to smooth seasonal
           noise. Completions are interpolated monthly from spring commencement
-          anchor points. 2023-24 is estimated from CRA Taulbee Survey growth.
+          anchor points. 2023-24 est. from 2024 Taulbee Survey; 2024-25 &amp;
+          2025-26 are projections based on declining enrollment trends.
         </p>
       </footer>
     </main>
