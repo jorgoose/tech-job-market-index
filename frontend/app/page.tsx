@@ -29,7 +29,7 @@ export default function Home() {
           Tech Job Market Index
         </h1>
         <p className="mt-2 text-lg text-gray-500">
-          JOLTS job openings in professional &amp; business services vs.
+          JOLTS job openings in the Information sector (NAICS 51) vs.
           computer science enrollment at top US universities
         </p>
       </header>
@@ -40,8 +40,8 @@ export default function Home() {
           Job Openings vs. CS Enrollment
         </h2>
         <p className="text-sm text-gray-400 mb-6">
-          BLS JOLTS Professional &amp; Business Services (FRED JTS540099JOL)
-          overlaid with Top 20 US CS Program Enrollment
+          BLS JOLTS Information Sector (FRED JTU5100JOL) overlaid with
+          Top 20 US CS Program Enrollment
         </p>
         <JobsEnrollmentChart />
       </section>
@@ -49,13 +49,13 @@ export default function Home() {
       {/* Key Insights */}
       <section className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-10">
         <InsightCard
-          value={`${(stats.peakValue / 1000).toFixed(1)}M`}
+          value={`${stats.peakValue}K`}
           label="Peak Job Openings"
           detail={`${formatDate(stats.peakDate)} — +${Math.round(stats.peakVsPrePandemicPct)}% vs. 2019 avg`}
           color="red"
         />
         <InsightCard
-          value={`${(stats.latestValue / 1000).toFixed(1)}M`}
+          value={`${stats.latestValue}K`}
           label="Latest Job Openings"
           detail={`${formatDate(stats.latestDate)} — ${Math.round(stats.latestVsPrePandemicPct)}% vs. 2019 avg`}
           color="red"
@@ -85,15 +85,15 @@ export default function Home() {
         <p>
           Job Openings:{" "}
           <a
-            href="https://fred.stlouisfed.org/series/JTS540099JOL"
+            href="https://fred.stlouisfed.org/series/JTU5100JOL"
             className="underline hover:text-gray-600"
             target="_blank"
             rel="noopener noreferrer"
           >
-            FRED JTS540099JOL
+            FRED JTU5100JOL
           </a>{" "}
-          — BLS JOLTS Job Openings: Professional &amp; Business Services
-          (Thousands, SA)
+          — BLS JOLTS Job Openings: Information Sector, NAICS 51
+          (Thousands, NSA)
         </p>
         <p>
           Enrollment:{" "}
@@ -117,8 +117,10 @@ export default function Home() {
           — CS enrollment estimates for top 20 US programs
         </p>
         <p>
-          Note: JOLTS data is seasonally adjusted. Enrollment data is
-          interpolated monthly from fall-semester anchor points.
+          Note: JOLTS Information data is not seasonally adjusted — use
+          the 3-month moving average toggle on the chart to smooth seasonal
+          noise. Enrollment data is interpolated monthly from fall-semester
+          anchor points.
         </p>
       </footer>
     </main>

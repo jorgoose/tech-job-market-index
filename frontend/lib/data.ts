@@ -1,107 +1,108 @@
 /**
- * FRED series JTS540099JOL — JOLTS Job Openings: Professional and Business
- * Services (Thousands, Seasonally Adjusted, Monthly).
- * Source: https://fred.stlouisfed.org/series/JTS540099JOL
+ * FRED series JTU5100JOL — JOLTS Job Openings: Information Sector
+ * (NAICS 51 — software publishers, data processing, telecom, internet services).
+ * Thousands, Not Seasonally Adjusted, Monthly.
+ * Source: https://fred.stlouisfed.org/series/JTU5100JOL
  *
  * Published by the U.S. Bureau of Labor Statistics.
  */
 export const jobOpeningsData: { date: string; value: number }[] = [
-  { date: "2018-01", value: 1118 },
-  { date: "2018-02", value: 1108 },
-  { date: "2018-03", value: 1185 },
-  { date: "2018-04", value: 1196 },
-  { date: "2018-05", value: 1239 },
-  { date: "2018-06", value: 1268 },
-  { date: "2018-07", value: 1253 },
-  { date: "2018-08", value: 1331 },
-  { date: "2018-09", value: 1342 },
-  { date: "2018-10", value: 1344 },
-  { date: "2018-11", value: 1343 },
-  { date: "2018-12", value: 1351 },
-  { date: "2019-01", value: 1391 },
-  { date: "2019-02", value: 1387 },
-  { date: "2019-03", value: 1347 },
-  { date: "2019-04", value: 1169 },
-  { date: "2019-05", value: 1277 },
-  { date: "2019-06", value: 1279 },
-  { date: "2019-07", value: 1252 },
-  { date: "2019-08", value: 1282 },
-  { date: "2019-09", value: 1241 },
-  { date: "2019-10", value: 1205 },
-  { date: "2019-11", value: 1202 },
-  { date: "2019-12", value: 1237 },
-  { date: "2020-01", value: 1293 },
-  { date: "2020-02", value: 1288 },
-  { date: "2020-03", value: 1095 },
-  { date: "2020-04", value: 817 },
-  { date: "2020-05", value: 1001 },
-  { date: "2020-06", value: 1079 },
-  { date: "2020-07", value: 1149 },
-  { date: "2020-08", value: 1152 },
-  { date: "2020-09", value: 1262 },
-  { date: "2020-10", value: 1259 },
-  { date: "2020-11", value: 1343 },
-  { date: "2020-12", value: 1448 },
-  { date: "2021-01", value: 1419 },
-  { date: "2021-02", value: 1477 },
-  { date: "2021-03", value: 1563 },
-  { date: "2021-04", value: 1727 },
-  { date: "2021-05", value: 1888 },
-  { date: "2021-06", value: 1932 },
-  { date: "2021-07", value: 2076 },
-  { date: "2021-08", value: 2057 },
-  { date: "2021-09", value: 1954 },
-  { date: "2021-10", value: 2115 },
-  { date: "2021-11", value: 2045 },
-  { date: "2021-12", value: 2092 },
-  { date: "2022-01", value: 2096 },
-  { date: "2022-02", value: 2348 },
-  { date: "2022-03", value: 2454 },
-  { date: "2022-04", value: 2318 },
-  { date: "2022-05", value: 2226 },
-  { date: "2022-06", value: 2282 },
-  { date: "2022-07", value: 2101 },
-  { date: "2022-08", value: 1785 },
-  { date: "2022-09", value: 2134 },
-  { date: "2022-10", value: 1797 },
-  { date: "2022-11", value: 2151 },
-  { date: "2022-12", value: 2136 },
-  { date: "2023-01", value: 2028 },
-  { date: "2023-02", value: 1824 },
-  { date: "2023-03", value: 1794 },
-  { date: "2023-04", value: 1806 },
-  { date: "2023-05", value: 1613 },
-  { date: "2023-06", value: 1527 },
-  { date: "2023-07", value: 1243 },
-  { date: "2023-08", value: 1565 },
-  { date: "2023-09", value: 1511 },
-  { date: "2023-10", value: 1501 },
-  { date: "2023-11", value: 1379 },
-  { date: "2023-12", value: 1405 },
-  { date: "2024-01", value: 1443 },
-  { date: "2024-02", value: 1399 },
-  { date: "2024-03", value: 1272 },
-  { date: "2024-04", value: 1289 },
-  { date: "2024-05", value: 1302 },
-  { date: "2024-06", value: 1131 },
-  { date: "2024-07", value: 1367 },
-  { date: "2024-08", value: 1332 },
-  { date: "2024-09", value: 1308 },
-  { date: "2024-10", value: 1358 },
-  { date: "2024-11", value: 1733 },
-  { date: "2024-12", value: 1364 },
-  { date: "2025-01", value: 1211 },
-  { date: "2025-02", value: 1336 },
-  { date: "2025-03", value: 1249 },
-  { date: "2025-04", value: 1386 },
-  { date: "2025-05", value: 1302 },
-  { date: "2025-06", value: 1365 },
-  { date: "2025-07", value: 1274 },
-  { date: "2025-08", value: 1235 },
-  { date: "2025-09", value: 1502 },
-  { date: "2025-10", value: 1300 },
-  { date: "2025-11", value: 1273 },
-  { date: "2025-12", value: 1016 },
+  { date: "2018-01", value: 129 },
+  { date: "2018-02", value: 127 },
+  { date: "2018-03", value: 126 },
+  { date: "2018-04", value: 183 },
+  { date: "2018-05", value: 124 },
+  { date: "2018-06", value: 127 },
+  { date: "2018-07", value: 160 },
+  { date: "2018-08", value: 152 },
+  { date: "2018-09", value: 123 },
+  { date: "2018-10", value: 147 },
+  { date: "2018-11", value: 127 },
+  { date: "2018-12", value: 123 },
+  { date: "2019-01", value: 145 },
+  { date: "2019-02", value: 136 },
+  { date: "2019-03", value: 146 },
+  { date: "2019-04", value: 120 },
+  { date: "2019-05", value: 124 },
+  { date: "2019-06", value: 126 },
+  { date: "2019-07", value: 167 },
+  { date: "2019-08", value: 134 },
+  { date: "2019-09", value: 183 },
+  { date: "2019-10", value: 150 },
+  { date: "2019-11", value: 132 },
+  { date: "2019-12", value: 133 },
+  { date: "2020-01", value: 131 },
+  { date: "2020-02", value: 135 },
+  { date: "2020-03", value: 117 },
+  { date: "2020-04", value: 130 },
+  { date: "2020-05", value: 74 },
+  { date: "2020-06", value: 91 },
+  { date: "2020-07", value: 100 },
+  { date: "2020-08", value: 83 },
+  { date: "2020-09", value: 124 },
+  { date: "2020-10", value: 128 },
+  { date: "2020-11", value: 97 },
+  { date: "2020-12", value: 123 },
+  { date: "2021-01", value: 174 },
+  { date: "2021-02", value: 112 },
+  { date: "2021-03", value: 106 },
+  { date: "2021-04", value: 141 },
+  { date: "2021-05", value: 137 },
+  { date: "2021-06", value: 153 },
+  { date: "2021-07", value: 226 },
+  { date: "2021-08", value: 203 },
+  { date: "2021-09", value: 220 },
+  { date: "2021-10", value: 210 },
+  { date: "2021-11", value: 194 },
+  { date: "2021-12", value: 247 },
+  { date: "2022-01", value: 246 },
+  { date: "2022-02", value: 262 },
+  { date: "2022-03", value: 263 },
+  { date: "2022-04", value: 298 },
+  { date: "2022-05", value: 224 },
+  { date: "2022-06", value: 221 },
+  { date: "2022-07", value: 267 },
+  { date: "2022-08", value: 187 },
+  { date: "2022-09", value: 230 },
+  { date: "2022-10", value: 215 },
+  { date: "2022-11", value: 198 },
+  { date: "2022-12", value: 82 },
+  { date: "2023-01", value: 108 },
+  { date: "2023-02", value: 156 },
+  { date: "2023-03", value: 147 },
+  { date: "2023-04", value: 160 },
+  { date: "2023-05", value: 144 },
+  { date: "2023-06", value: 135 },
+  { date: "2023-07", value: 174 },
+  { date: "2023-08", value: 141 },
+  { date: "2023-09", value: 101 },
+  { date: "2023-10", value: 102 },
+  { date: "2023-11", value: 131 },
+  { date: "2023-12", value: 143 },
+  { date: "2024-01", value: 168 },
+  { date: "2024-02", value: 139 },
+  { date: "2024-03", value: 147 },
+  { date: "2024-04", value: 102 },
+  { date: "2024-05", value: 118 },
+  { date: "2024-06", value: 92 },
+  { date: "2024-07", value: 127 },
+  { date: "2024-08", value: 131 },
+  { date: "2024-09", value: 122 },
+  { date: "2024-10", value: 191 },
+  { date: "2024-11", value: 109 },
+  { date: "2024-12", value: 105 },
+  { date: "2025-01", value: 143 },
+  { date: "2025-02", value: 136 },
+  { date: "2025-03", value: 160 },
+  { date: "2025-04", value: 184 },
+  { date: "2025-05", value: 165 },
+  { date: "2025-06", value: 165 },
+  { date: "2025-07", value: 203 },
+  { date: "2025-08", value: 169 },
+  { date: "2025-09", value: 210 },
+  { date: "2025-10", value: 120 },
+  { date: "2025-11", value: 75 },
+  { date: "2025-12", value: 88 },
 ];
 
 /**
@@ -191,12 +192,19 @@ export function getSummaryStats() {
  * Build a merged dataset for Recharts — monthly job postings with
  * enrollment interpolated from fall-semester anchor points.
  */
-export function getMergedChartData(): {
+export interface ChartDatum {
   date: string;
   label: string;
-  jobPostings: number;
+  jobOpenings: number;
+  jobOpeningsSmoothed: number | null;
   enrollment: number | null;
-}[] {
+}
+
+/**
+ * Build a merged dataset for Recharts — monthly job openings (raw + 3-mo MA)
+ * with enrollment interpolated from fall-semester anchor points.
+ */
+export function getMergedChartData(): ChartDatum[] {
   const yearlyTotals = getYearlyTotals();
 
   // Build enrollment anchors at September of each year
@@ -207,7 +215,7 @@ export function getMergedChartData(): {
     })
   );
 
-  return jobOpeningsData.map((jp) => {
+  const raw = jobOpeningsData.map((jp) => {
     const [yyyy, mm] = jp.date.split("-").map(Number);
     const ts = new Date(yyyy, mm - 1, 1).getTime();
 
@@ -239,8 +247,18 @@ export function getMergedChartData(): {
     return {
       date: jp.date,
       label,
-      jobPostings: jp.value,
+      jobOpenings: jp.value,
+      jobOpeningsSmoothed: null as number | null,
       enrollment,
     };
   });
+
+  // Compute 3-month centered moving average
+  for (let i = 1; i < raw.length - 1; i++) {
+    raw[i].jobOpeningsSmoothed = Math.round(
+      (raw[i - 1].jobOpenings + raw[i].jobOpenings + raw[i + 1].jobOpenings) / 3
+    );
+  }
+
+  return raw;
 }

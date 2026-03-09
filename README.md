@@ -1,6 +1,6 @@
 # Tech Job Market Index
 
-Interactive visualization comparing **JOLTS job openings** in Professional & Business Services with **undergraduate CS enrollment** at the top 20 US universities.
+Interactive visualization comparing **JOLTS job openings** in the Information sector (NAICS 51) with **undergraduate CS enrollment** at the top 20 US universities.
 
 ## Project Structure
 
@@ -37,7 +37,7 @@ Generates `output/jobs_vs_enrollment.png`.
 
 ## Data Sources
 
-- **Job Openings**: [FRED JTS540099JOL](https://fred.stlouisfed.org/series/JTS540099JOL) — BLS JOLTS Job Openings: Professional & Business Services (Thousands, Seasonally Adjusted)
+- **Job Openings**: [FRED JTU5100JOL](https://fred.stlouisfed.org/series/JTU5100JOL) — BLS JOLTS Job Openings: Information Sector, NAICS 51 (Thousands, Not Seasonally Adjusted)
 - **Enrollment**: [CRA Taulbee Survey](https://cra.org/resources/taulbee-survey/) / [NCES IPEDS](https://nces.ed.gov/ipeds/) — estimated undergraduate CS enrollment at top 20 US programs
 
 ## Deploying to Vercel
