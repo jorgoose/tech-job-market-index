@@ -128,6 +128,8 @@ export interface CsCompletionRow {
   year: number;
   total: number;
   estimated?: boolean;
+  /** Further-out projections (2027+), hidden behind toggle */
+  projected?: boolean;
   sourceLabel: string;
   sourceUrl: string;
   methodology?: string;
@@ -182,11 +184,25 @@ export const csCompletionsData: CsCompletionRow[] = [
     sourceUrl: "https://cra.org/crn/2025/10/cerp-pulse-survey-a-snapshot-of-2025-undergraduate-computing-enrollment-patterns/",
     methodology: "−4.3% YoY continued (Taulbee rate); Fall 2025 enrollment drops of 6-15% support continued decline",
   },
+  {
+    academicYear: "2026-27", year: 2027, total: 94547, estimated: true, projected: true,
+    sourceLabel: "Proj. — Taulbee rate",
+    sourceUrl: "https://cra.org/crn/2025/10/cerp-pulse-survey-a-snapshot-of-2025-undergraduate-computing-enrollment-patterns/",
+    methodology: "−4.3% YoY continued; graduates enrolled ~2022-23 when growth was decelerating",
+  },
+  {
+    academicYear: "2027-28", year: 2028, total: 90482, estimated: true, projected: true,
+    sourceLabel: "Proj. — Taulbee rate",
+    sourceUrl: "https://cra.org/crn/2025/10/cerp-pulse-survey-a-snapshot-of-2025-undergraduate-computing-enrollment-patterns/",
+    methodology: "−4.3% YoY continued; graduates enrolled ~2023-24 when decline signals emerged",
+  },
 ];
 
-/** Return yearly CS completions totals (compatible with chart merge). */
+/** Return yearly CS completions totals for the chart (excludes far-out projections). */
 export function getYearlyTotals(): { year: number; total: number }[] {
-  return csCompletionsData.map((d) => ({ year: d.year, total: d.total }));
+  return csCompletionsData
+    .filter((d) => !d.projected)
+    .map((d) => ({ year: d.year, total: d.total }));
 }
 
 /** Compute summary statistics from the data arrays. */

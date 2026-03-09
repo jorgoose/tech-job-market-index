@@ -1,8 +1,13 @@
 import dynamic from "next/dynamic";
-import { getSummaryStats, csCompletionsData } from "@/lib/data";
+import { getSummaryStats } from "@/lib/data";
 
 const JobsEnrollmentChart = dynamic(
   () => import("@/components/JobsEnrollmentChart"),
+  { ssr: false }
+);
+
+const CompletionsTable = dynamic(
+  () => import("@/components/CompletionsTable"),
   { ssr: false }
 );
 
@@ -74,58 +79,7 @@ export default function Home() {
         <p className="text-sm text-gray-400 mb-6">
           National totals — CIP 11 (Computer &amp; Information Sciences), bachelor&apos;s level only
         </p>
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-sm border-collapse">
-            <thead>
-              <tr className="border-b-2 border-gray-300">
-                <th className="text-left py-2 px-3 font-semibold text-gray-700">Academic Year</th>
-                <th className="text-right py-2 px-3 font-semibold text-gray-700">Bachelor&apos;s Degrees</th>
-                <th className="text-right py-2 px-3 font-semibold text-gray-700">YoY Change</th>
-                <th className="text-left py-2 px-3 font-semibold text-gray-700">Source</th>
-              </tr>
-            </thead>
-            <tbody>
-              {csCompletionsData.map((d, i) => {
-                const prev = i > 0 ? csCompletionsData[i - 1].total : null;
-                const yoy = prev ? ((d.total - prev) / prev) * 100 : null;
-                return (
-                  <tr key={d.academicYear} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-1.5 px-3 text-gray-800">{d.academicYear}</td>
-                    <td className="py-1.5 px-3 text-right font-mono text-gray-600">
-                      {d.total.toLocaleString()}
-                      {d.estimated && <span className="text-xs text-amber-500 ml-1">*</span>}
-                    </td>
-                    <td className="py-1.5 px-3 text-right font-mono text-gray-600">
-                      {yoy !== null ? `${yoy >= 0 ? "+" : ""}${yoy.toFixed(1)}%` : "—"}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs">
-                      <a
-                        href={d.sourceUrl}
-                        className="underline text-blue-500 hover:text-blue-700"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title={d.methodology ?? d.sourceLabel}
-                      >
-                        {d.sourceLabel}
-                      </a>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <p className="text-xs text-gray-400 mt-3 space-y-1">
-            <span className="block">
-              * Estimated / projected — click source links above for methodology.
-            </span>
-            <span className="block">
-              <strong>2017-22:</strong> NCES IPEDS Digest of Education Statistics, Table 325.35 (bachelor&apos;s degrees in CIP 11).{" "}
-              <strong>2022-23:</strong> National Student Clearinghouse bachelor&apos;s earners report.{" "}
-              <strong>2023-26:</strong> Taulbee Survey measured −4.3% YoY in bachelor&apos;s degree production at PhD-granting CS departments (2023-24); same rate applied forward for projections.
-              CERP Pulse Survey (Fall 2025) corroborates with 62% of computing programs reporting enrollment declines.
-            </span>
-          </p>
-        </div>
+        <CompletionsTable />
       </section>
 
       {/* Sources */}
