@@ -242,8 +242,130 @@ export function getSummaryStats() {
 }
 
 /**
- * Build a merged dataset for Recharts — monthly job postings with
- * enrollment interpolated from fall-semester anchor points.
+ * FRED series IHLIDXUSTPSOFTDEVE — Indeed Software Development Job Postings
+ * Index, Feb 1 2020 = 100, Seasonally Adjusted, Monthly Average.
+ * Source: https://fred.stlouisfed.org/series/IHLIDXUSTPSOFTDEVE
+ *
+ * Published by Indeed via FRED.
+ */
+export const indeedSoftwareData: { date: string; value: number }[] = [
+  { date: "2020-02", value: 99.66 },
+  { date: "2020-03", value: 98.25 },
+  { date: "2020-04", value: 77.42 },
+  { date: "2020-05", value: 66.55 },
+  { date: "2020-06", value: 65.24 },
+  { date: "2020-07", value: 67.34 },
+  { date: "2020-08", value: 70.10 },
+  { date: "2020-09", value: 72.97 },
+  { date: "2020-10", value: 77.81 },
+  { date: "2020-11", value: 83.62 },
+  { date: "2020-12", value: 89.97 },
+  { date: "2021-01", value: 93.42 },
+  { date: "2021-02", value: 102.64 },
+  { date: "2021-03", value: 112.23 },
+  { date: "2021-04", value: 120.40 },
+  { date: "2021-05", value: 131.31 },
+  { date: "2021-06", value: 137.49 },
+  { date: "2021-07", value: 145.69 },
+  { date: "2021-08", value: 158.20 },
+  { date: "2021-09", value: 173.67 },
+  { date: "2021-10", value: 186.37 },
+  { date: "2021-11", value: 202.53 },
+  { date: "2021-12", value: 213.93 },
+  { date: "2022-01", value: 216.17 },
+  { date: "2022-02", value: 229.28 },
+  { date: "2022-03", value: 228.85 },
+  { date: "2022-04", value: 224.91 },
+  { date: "2022-05", value: 226.83 },
+  { date: "2022-06", value: 218.03 },
+  { date: "2022-07", value: 202.19 },
+  { date: "2022-08", value: 187.52 },
+  { date: "2022-09", value: 174.04 },
+  { date: "2022-10", value: 160.75 },
+  { date: "2022-11", value: 147.13 },
+  { date: "2022-12", value: 135.35 },
+  { date: "2023-01", value: 126.41 },
+  { date: "2023-02", value: 114.24 },
+  { date: "2023-03", value: 102.63 },
+  { date: "2023-04", value: 98.25 },
+  { date: "2023-05", value: 97.37 },
+  { date: "2023-06", value: 87.00 },
+  { date: "2023-07", value: 83.55 },
+  { date: "2023-08", value: 79.42 },
+  { date: "2023-09", value: 77.30 },
+  { date: "2023-10", value: 75.18 },
+  { date: "2023-11", value: 73.09 },
+  { date: "2023-12", value: 72.60 },
+  { date: "2024-01", value: 71.93 },
+  { date: "2024-02", value: 71.26 },
+  { date: "2024-03", value: 70.91 },
+  { date: "2024-04", value: 70.40 },
+  { date: "2024-05", value: 69.18 },
+  { date: "2024-06", value: 69.91 },
+  { date: "2024-07", value: 70.16 },
+  { date: "2024-08", value: 68.53 },
+  { date: "2024-09", value: 69.41 },
+  { date: "2024-10", value: 68.67 },
+  { date: "2024-11", value: 67.36 },
+  { date: "2024-12", value: 67.46 },
+  { date: "2025-01", value: 67.50 },
+  { date: "2025-02", value: 64.90 },
+  { date: "2025-03", value: 62.37 },
+  { date: "2025-04", value: 63.57 },
+  { date: "2025-05", value: 62.69 },
+  { date: "2025-06", value: 65.36 },
+  { date: "2025-07", value: 65.43 },
+  { date: "2025-08", value: 66.15 },
+  { date: "2025-09", value: 64.77 },
+  { date: "2025-10", value: 64.97 },
+  { date: "2025-11", value: 66.27 },
+  { date: "2025-12", value: 66.91 },
+  { date: "2026-01", value: 67.98 },
+  { date: "2026-02", value: 70.62 },
+];
+
+export type JobsSource = "jolts" | "indeed";
+
+export interface JobsSourceConfig {
+  label: string;
+  shortLabel: string;
+  unit: string;
+  yAxisDomain: [number, number];
+  prePandemicRef: number | null;
+  prePandemicLabel: string;
+  fredUrl: string;
+  fredSeries: string;
+  valueSuffix: string;
+}
+
+export const JOBS_SOURCES: Record<JobsSource, JobsSourceConfig> = {
+  jolts: {
+    label: "JOLTS Job Openings — Information (NAICS 51)",
+    shortLabel: "JOLTS Info Sector",
+    unit: "Thousands, NSA",
+    yAxisDomain: [0, 320],
+    prePandemicRef: 141,
+    prePandemicLabel: "2019 avg (pre-pandemic)",
+    fredUrl: "https://fred.stlouisfed.org/series/JTU5100JOL",
+    fredSeries: "JTU5100JOL",
+    valueSuffix: "K",
+  },
+  indeed: {
+    label: "Indeed Software Dev Postings Index",
+    shortLabel: "Indeed Software Dev",
+    unit: "Index, Feb 2020 = 100, SA",
+    yAxisDomain: [0, 250],
+    prePandemicRef: 100,
+    prePandemicLabel: "Feb 2020 baseline (100)",
+    fredUrl: "https://fred.stlouisfed.org/series/IHLIDXUSTPSOFTDEVE",
+    fredSeries: "IHLIDXUSTPSOFTDEVE",
+    valueSuffix: "",
+  },
+};
+
+/**
+ * Build a merged dataset for Recharts — monthly job data (raw + 3-mo MA)
+ * with enrollment interpolated from spring-commencement anchor points.
  */
 export interface ChartDatum {
   date: string;
@@ -253,11 +375,8 @@ export interface ChartDatum {
   enrollment: number | null;
 }
 
-/**
- * Build a merged dataset for Recharts — monthly job openings (raw + 3-mo MA)
- * with enrollment interpolated from fall-semester anchor points.
- */
-export function getMergedChartData(): ChartDatum[] {
+export function getMergedChartData(source: JobsSource = "jolts"): ChartDatum[] {
+  const jobsData = source === "jolts" ? jobOpeningsData : indeedSoftwareData;
   const yearlyTotals = getYearlyTotals();
 
   // Anchor completions at June of each year (spring commencement)
@@ -268,7 +387,7 @@ export function getMergedChartData(): ChartDatum[] {
     })
   );
 
-  const raw = jobOpeningsData.map((jp) => {
+  const raw = jobsData.map((jp) => {
     const [yyyy, mm] = jp.date.split("-").map(Number);
     const ts = new Date(yyyy, mm - 1, 1).getTime();
 
@@ -308,9 +427,10 @@ export function getMergedChartData(): ChartDatum[] {
 
   // Compute 3-month centered moving average
   for (let i = 1; i < raw.length - 1; i++) {
-    raw[i].jobOpeningsSmoothed = Math.round(
-      (raw[i - 1].jobOpenings + raw[i].jobOpenings + raw[i + 1].jobOpenings) / 3
-    );
+    raw[i].jobOpeningsSmoothed =
+      Math.round(
+        ((raw[i - 1].jobOpenings + raw[i].jobOpenings + raw[i + 1].jobOpenings) / 3) * 100
+      ) / 100;
   }
 
   return raw;

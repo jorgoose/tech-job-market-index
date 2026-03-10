@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -13,14 +13,11 @@ import {
   Legend,
   ReferenceLine,
 } from "recharts";
-import { getMergedChartData } from "@/lib/data";
+import { getMergedChartData, JOBS_SOURCES, type JobsSource } from "@/lib/data";
 
 const JOB_COLOR = "#E63946";
 const JOB_SMOOTH_COLOR = "#A4161A";
 const ENROLL_COLOR = "#457B9D";
-
-/** 2019 calendar-year average for the Information sector (JTU5100JOL). */
-const PRE_PANDEMIC_AVG = 141;
 
 function useIsMobile(breakpoint = 640) {
   const [isMobile, setIsMobile] = useState(false);
@@ -38,13 +35,14 @@ function CustomTooltip({
   active,
   payload,
   label,
+  valueSuffix,
 }: {
   active?: boolean;
   payload?: Array<{ name: string; value: number; color: string; dataKey: string }>;
   label?: string;
+  valueSuffix?: string;
 }) {
   if (!active || !payload?.length) return null;
-  // Deduplicate — Area and Line share the same dataKey
   const seen = new Set<string>();
   const unique = payload.filter((p) => {
     if (seen.has(p.dataKey)) return false;
@@ -59,12 +57,13 @@ function CustomTooltip({
           {entry.name.includes("Degrees")
             ? "CS Degrees"
             : entry.dataKey === "jobOpeningsSmoothed"
-              ? "Job Openings (3-mo avg)"
-              : "Job Openings"}
+              ? "Jobs (3-mo avg)"
+              : "Job Postings"}
           :{" "}
           <span className="font-mono font-semibold">
-            {entry.value?.toLocaleString()}
-            {entry.name.includes("Degrees") ? "" : "K"}
+            {entry.name.includes("Degrees")
+              ? entry.value?.toLocaleString()
+              : `${entry.value?.toLocaleString()}${valueSuffix}`}
           </span>
         </p>
       ))}
@@ -73,33 +72,85 @@ function CustomTooltip({
 }
 
 export default function JobsEnrollmentChart() {
-  const data = getMergedChartData();
   const isMobile = useIsMobile();
   const [smoothed, setSmoothed] = useState(false);
+  const [source, setSource] = useState<JobsSource>("jolts");
+
+  const config = JOBS_SOURCES[source];
+  const data = useMemo(() => getMergedChartData(source), [source]);
 
   return (
     <div>
-      {/* Smoothing toggle */}
-      <div className="flex items-center gap-2 mb-4">
-        <button
-          onClick={() => setSmoothed((s) => !s)}
-          className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
-            smoothed ? "bg-red-600" : "bg-gray-300"
-          }`}
-          role="switch"
-          aria-checked={smoothed}
-          aria-label="Toggle 3-month moving average"
-        >
-          <span
-            className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${
-              smoothed ? "translate-x-[18px]" : "translate-x-[3px]"
+      {/* Controls */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 mb-4">
+        {/* Data source selector */}
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-500 whitespace-nowrap">Source:</span>
+          <div className="flex rounded-lg border border-gray-200 overflow-hidden text-sm">
+            <button
+              onClick={() => setSource("jolts")}
+              className={`px-3 py-1.5 transition-colors ${
+                source === "jolts"
+                  ? "bg-red-600 text-white"
+                  : "bg-white text-gray-600 hover:bg-gray-50"
+              }`}
+            >
+              JOLTS Info Sector
+            </button>
+            <button
+              onClick={() => setSource("indeed")}
+              className={`px-3 py-1.5 transition-colors border-l border-gray-200 ${
+                source === "indeed"
+                  ? "bg-red-600 text-white"
+                  : "bg-white text-gray-600 hover:bg-gray-50"
+              }`}
+            >
+              Indeed Software Dev
+            </button>
+          </div>
+        </div>
+
+        {/* Smoothing toggle */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setSmoothed((s) => !s)}
+            className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+              smoothed ? "bg-red-600" : "bg-gray-300"
             }`}
-          />
-        </button>
-        <span className="text-sm text-gray-500">
-          3-month moving average
-        </span>
+            role="switch"
+            aria-checked={smoothed}
+            aria-label="Toggle 3-month moving average"
+          >
+            <span
+              className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${
+                smoothed ? "translate-x-[18px]" : "translate-x-[3px]"
+              }`}
+            />
+          </button>
+          <span className="text-sm text-gray-500">
+            3-month moving average
+          </span>
+        </div>
       </div>
+
+      {/* Source info */}
+      <p className="text-xs text-gray-400 mb-3">
+        <a
+          href={config.fredUrl}
+          className="underline hover:text-gray-600"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          FRED {config.fredSeries}
+        </a>
+        {" — "}
+        {config.unit}
+        {source === "indeed" && (
+          <span className="text-amber-500 ml-1">
+            (starts Feb 2020 — no pre-pandemic history)
+          </span>
+        )}
+      </p>
 
       <div className="w-full h-[350px] sm:h-[450px] md:h-[600px]">
         <ResponsiveContainer width="100%" height="100%">
@@ -121,19 +172,21 @@ export default function JobsEnrollmentChart() {
               height={isMobile ? 45 : 60}
             />
 
-            {/* Left Y-axis: Job Openings (thousands) */}
+            {/* Left Y-axis: Job data */}
             <YAxis
               yAxisId="jobs"
               orientation="left"
-              domain={[0, 320]}
+              domain={config.yAxisDomain}
               tick={{ fill: JOB_COLOR, fontSize: isMobile ? 9 : 11 }}
-              tickFormatter={(v: number) => `${v}K`}
+              tickFormatter={(v: number) =>
+                source === "jolts" ? `${v}K` : v.toFixed(0)
+              }
               width={isMobile ? 35 : 60}
               label={
                 isMobile
                   ? undefined
                   : {
-                      value: "Job Openings — Info Sector (Thousands, NSA)",
+                      value: `${config.shortLabel} (${config.unit})`,
                       angle: -90,
                       position: "insideLeft",
                       offset: -5,
@@ -168,7 +221,9 @@ export default function JobsEnrollmentChart() {
               }
             />
 
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip
+              content={<CustomTooltip valueSuffix={config.valueSuffix} />}
+            />
             <Legend
               wrapperStyle={{
                 paddingTop: isMobile ? 4 : 12,
@@ -179,30 +234,32 @@ export default function JobsEnrollmentChart() {
                 isMobile
                   ? value.includes("Degrees")
                     ? "CS Degrees"
-                    : "Job Openings"
+                    : "Job Postings"
                   : value
               }
             />
 
-            {/* 2019 pre-pandemic average */}
-            <ReferenceLine
-              yAxisId="jobs"
-              y={PRE_PANDEMIC_AVG}
-              stroke={JOB_COLOR}
-              strokeDasharray="6 4"
-              opacity={0.35}
-              label={
-                isMobile
-                  ? undefined
-                  : {
-                      value: "2019 avg (pre-pandemic)",
-                      position: "insideTopLeft",
-                      fill: JOB_COLOR,
-                      fontSize: 10,
-                      opacity: 0.6,
-                    }
-              }
-            />
+            {/* Pre-pandemic reference line */}
+            {config.prePandemicRef && (
+              <ReferenceLine
+                yAxisId="jobs"
+                y={config.prePandemicRef}
+                stroke={JOB_COLOR}
+                strokeDasharray="6 4"
+                opacity={0.35}
+                label={
+                  isMobile
+                    ? undefined
+                    : {
+                        value: config.prePandemicLabel,
+                        position: "insideTopLeft",
+                        fill: JOB_COLOR,
+                        fontSize: 10,
+                        opacity: 0.6,
+                      }
+                }
+              />
+            )}
 
             {/* Enrollment area + line */}
             <Area
@@ -225,12 +282,12 @@ export default function JobsEnrollmentChart() {
               legendType="none"
             />
 
-            {/* Job openings — raw (faded when smoothed is on) */}
+            {/* Job data — raw (faded when smoothed is on) */}
             <Area
               yAxisId="jobs"
               type="monotone"
               dataKey="jobOpenings"
-              name="JOLTS Job Openings — Information (NAICS 51)"
+              name={config.label}
               fill={JOB_COLOR}
               fillOpacity={smoothed ? 0.03 : 0.08}
               stroke="none"
@@ -239,7 +296,7 @@ export default function JobsEnrollmentChart() {
               yAxisId="jobs"
               type="monotone"
               dataKey="jobOpenings"
-              name="JOLTS Job Openings — Information (NAICS 51)"
+              name={config.label}
               stroke={JOB_COLOR}
               strokeWidth={isMobile ? 1.5 : 2}
               strokeOpacity={smoothed ? 0.25 : 1}
@@ -247,13 +304,13 @@ export default function JobsEnrollmentChart() {
               legendType="none"
             />
 
-            {/* Job openings — 3-month moving average (only when toggled on) */}
+            {/* Job data — 3-month moving average (only when toggled on) */}
             {smoothed && (
               <Line
                 yAxisId="jobs"
                 type="monotone"
                 dataKey="jobOpeningsSmoothed"
-                name="JOLTS Job Openings — Information (NAICS 51)"
+                name={config.label}
                 stroke={JOB_SMOOTH_COLOR}
                 strokeWidth={isMobile ? 2 : 2.5}
                 dot={false}

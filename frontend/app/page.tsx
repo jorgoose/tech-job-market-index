@@ -37,12 +37,10 @@ export default function Home() {
       {/* Chart */}
       <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-8 mb-10">
         <h2 className="text-xl font-semibold mb-1">
-          Job Openings vs. CS Bachelor&apos;s Degrees
+          Job Postings vs. CS Bachelor&apos;s Degrees
         </h2>
-        <p className="text-sm text-gray-400 mb-6">
-          BLS JOLTS Information Sector ({" "}
-          <a href="https://fred.stlouisfed.org/series/JTU5100JOL" className="underline hover:text-gray-600" target="_blank" rel="noopener noreferrer">FRED JTU5100JOL</a>
-          ) overlaid with national CS bachelor&apos;s completions ({" "}
+        <p className="text-sm text-gray-400 mb-4">
+          Toggle between two job market data sources, overlaid with national CS bachelor&apos;s completions ({" "}
           <a href="https://nces.ed.gov/programs/digest/d23/tables/dt23_325.35.asp" className="underline hover:text-gray-600" target="_blank" rel="noopener noreferrer">NCES CIP 11</a>
           )
         </p>
@@ -86,7 +84,7 @@ export default function Home() {
       <footer className="text-xs text-gray-400 space-y-1 pb-8">
         <p className="font-semibold text-gray-500">Data Sources</p>
         <p>
-          Job Openings:{" "}
+          Job Data (Source 1):{" "}
           <a
             href="https://fred.stlouisfed.org/series/JTU5100JOL"
             className="underline hover:text-gray-600"
@@ -97,6 +95,19 @@ export default function Home() {
           </a>{" "}
           — BLS JOLTS Job Openings: Information Sector, NAICS 51
           (Thousands, NSA)
+        </p>
+        <p>
+          Job Data (Source 2):{" "}
+          <a
+            href="https://fred.stlouisfed.org/series/IHLIDXUSTPSOFTDEVE"
+            className="underline hover:text-gray-600"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            FRED IHLIDXUSTPSOFTDEVE
+          </a>{" "}
+          — Indeed Software Development Job Postings Index
+          (Feb 2020 = 100, Seasonally Adjusted)
         </p>
         <p>
           CS Degrees:{" "}
@@ -120,11 +131,12 @@ export default function Home() {
           — National CS bachelor&apos;s degrees conferred (CIP 11)
         </p>
         <p>
-          Note: JOLTS Information data is not seasonally adjusted — use
-          the 3-month moving average toggle on the chart to smooth seasonal
-          noise. Completions are interpolated monthly from spring commencement
-          anchor points. 2023-26 estimated/projected using Taulbee&apos;s measured
-          −4.3% YoY bachelor&apos;s degree production decline at PhD-granting CS depts.
+          Note: JOLTS data is not seasonally adjusted — use the 3-month
+          moving average toggle to smooth noise. Indeed data is already
+          seasonally adjusted. Completions are interpolated monthly from
+          spring commencement anchor points. 2023-28 estimated/projected
+          using Taulbee&apos;s measured −4.3% YoY bachelor&apos;s degree production
+          decline at PhD-granting CS depts.
         </p>
       </footer>
     </main>
